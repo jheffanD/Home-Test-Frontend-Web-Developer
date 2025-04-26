@@ -1,10 +1,32 @@
 "use client";
 import Image from "next/image";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Userbutton from "@/components/userbutton";
 import { usePathname } from "next/navigation";
+import { Getalluser } from "@/app/API/Route";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 export default function Navbar() {
   const pathname = usePathname();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await Getalluser();
+        const data = await response.json();
+
+        // Misal datanya kayak { name: "Jeffan" }
+        setUserName(data.name);
+      } catch (error) {
+        console.error("Failed to fetch user:", error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+  const firstLetter = userName ? userName.charAt(0).toUpperCase() : "";
 
   const isWhiteLogo =
     pathname.startsWith("/user") ||
@@ -18,17 +40,19 @@ export default function Navbar() {
   return (
     <nav className="w-full h-14 bg-transparent fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-2 z-50">
       <div className="flex items-center ml-10">
-        <Image src={logoSrc} alt="Logo" width={100} height={100} />
+        <Link href="/">
+          <Image src={logoSrc} alt="Logo" width={100} height={100} />
+        </Link>
       </div>
 
       <div className="flex items-center space-x-2 text-white mr-10">
-        <p className="bg-gray-400 w-7 aspect-square rounded-full flex items-center justify-center font-medium">
-          J
-        </p>
-        <p
-          className={`underline ${textColor} font-light underline-offset-auto`}
-        >
-          James Dean
+        <div className="bg-gray-400 w-5 mr-5 rounded-full flex items-center justify-center font-medium">
+          <Avatar>
+            <AvatarFallback> {firstLetter}</AvatarFallback>
+          </Avatar>
+        </div>
+        <p>
+          <Userbutton warna={textColor} />
         </p>
       </div>
     </nav>
