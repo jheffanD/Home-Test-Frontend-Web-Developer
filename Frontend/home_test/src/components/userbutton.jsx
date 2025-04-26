@@ -26,9 +26,9 @@ export default function UserMenu({ warna }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <div className={`underline font-light cursor-pointer ${color}`}>
+        <span className={`underline font-light cursor-pointer ${color}`}>
           Jeffan
-        </div>
+        </span>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-44 mt-2 mr-10 overflow-hidden">
@@ -64,7 +64,11 @@ export default function UserMenu({ warna }) {
             </AlertDialogHeader>
             <AlertDialogFooter>
               <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction className="bg-blue-600">Logout</AlertDialogAction>
+              <AlertDialogAction className="bg-blue-600">
+                <Link href="/Login" className="text-white">
+                  Log out
+                </Link>
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
