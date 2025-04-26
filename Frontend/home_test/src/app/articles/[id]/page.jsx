@@ -95,14 +95,13 @@ export default async function ArticleDetail({ params }) {
               your experience in the comments!
             </p>
           </section>
+          <div className="flex flex-col text-left w-full  py-5 mb-[-20px]">
+            <h1 className="font-bold ">Other articles</h1>
+          </div>
+          <section>
+            <OtherArtikel jumm={3} />
+          </section>
         </div>
-
-        <div className="flex flex-col text-left w-full px-10 py-5 mb-[-20px]">
-          <h1 className="font-bold text-left">Other articles</h1>
-        </div>
-        <section className="">
-          <OtherArtikel jumm={3} />
-        </section>
       </div>
     </main>
   );
