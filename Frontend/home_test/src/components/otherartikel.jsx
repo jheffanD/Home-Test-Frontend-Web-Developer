@@ -66,14 +66,12 @@ export default function OtherArtikel({ jumm }) {
               </h4>
               <p className="text-gray-600 text-xs mb-2">{item.description}</p>
               <div className="flex flex-wrap gap-1 mt-2">
-                {item.tags.map((tag, i) => (
-                  <span
-                    key={i}
-                    className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
+                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                  {item.category}
+                </span>
+                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                  {item.tags}
+                </span>
               </div>
             </div>
           ))}

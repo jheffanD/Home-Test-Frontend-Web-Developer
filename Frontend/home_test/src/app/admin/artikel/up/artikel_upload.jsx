@@ -4,6 +4,8 @@ import Navtop from "@/components/navtopadmin";
 import Image from "next/image";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 
 export default function ArtikelUpload() {
   const [image, setImage] = useState("");
@@ -18,7 +20,8 @@ export default function ArtikelUpload() {
 
     if (!image) newErrors.image = "Please select a thumbnail.";
     if (!title) newErrors.title = "Please enter a title.";
-    if (!kategori || kategori === "Select category") newErrors.kategori = "Please select a category.";
+    if (!kategori || kategori === "Select category")
+      newErrors.kategori = "Please select a category.";
     if (!content) newErrors.content = "Content field cannot be empty.";
 
     setErrors(newErrors);
@@ -40,7 +43,12 @@ export default function ArtikelUpload() {
         >
           {/* Grup pertama */}
           <section className="w-full p-[24px] gap-[10px] flex">
+            <Link 
+            className="cursor-pointer"
+            href="/admin/artikel/crud">
             <Image src="/img/left.png" alt="Logo" width={20} height={20} />
+            </Link>
+
             <label className="text-base font-medium text-slate-900">
               Create Articles
             </label>
@@ -49,7 +57,9 @@ export default function ArtikelUpload() {
           {/* Grup kedua */}
           <section className="w-full p-[24px] gap-[10px] flex flex-col">
             {/* Thumbnail */}
-            <label className="text-sm font-medium text-gray-900 mb-2">Thumbnails</label>
+            <label className="text-sm font-medium text-gray-900 mb-2">
+              Thumbnails
+            </label>
             <div className="border-2 w-52 h-52 p-4 border-dashed bg-white border-gray-300 rounded-xl flex flex-col items-center justify-center mb-2">
               <label className="cursor-pointer text-slate-500 flex flex-col items-center text-center">
                 <Image src="/img/ima.png" alt="Logo" width={20} height={20} />
@@ -66,11 +76,15 @@ export default function ArtikelUpload() {
                 />
               </label>
             </div>
-              {errors.image && <span className="text-xs text-red-500">{errors.image}</span>}
+            {errors.image && (
+              <span className="text-xs text-red-500">{errors.image}</span>
+            )}
 
             {/* Title */}
             <div>
-              <label className="text-sm font-medium text-gray-900 mb-2">Title</label>
+              <label className="text-sm font-medium text-gray-900 mb-2">
+                Title
+              </label>
               <input
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -78,12 +92,16 @@ export default function ArtikelUpload() {
                 placeholder="Input title"
                 className="border w-full border-slate-200 rounded-md p-2 bg-white"
               />
-              {errors.title && <p className="text-xs text-red-500">{errors.title}</p>}
+              {errors.title && (
+                <p className="text-xs text-red-500">{errors.title}</p>
+              )}
             </div>
 
             {/* Category */}
             <div className="w-full">
-              <label className="text-sm font-medium text-gray-900 mb-2">Category</label>
+              <label className="text-sm font-medium text-gray-900 mb-2">
+                Category
+              </label>
               <select
                 value={kategori}
                 onChange={(e) => setKategori(e.target.value)}
@@ -94,10 +112,13 @@ export default function ArtikelUpload() {
                 <option>Education</option>
                 <option>Culture</option>
               </select>
-              {errors.kategori && <p className="text-xs text-red-500">{errors.kategori}</p>}
+              {errors.kategori && (
+                <p className="text-xs text-red-500">{errors.kategori}</p>
+              )}
               <p className="text-sm text-gray-500 mt-1">
                 The existing category list can be seen in the{" "}
-                <span className="text-blue-600 cursor-pointer">category</span> menu
+                <span className="text-blue-600 cursor-pointer">category</span>{" "}
+                menu
               </p>
             </div>
 
@@ -112,7 +133,9 @@ export default function ArtikelUpload() {
                 placeholder="Type a content..."
                 className="w-full h-48 bg-white rounded-b-md p-3 resize-none"
               ></textarea>
-              {errors.content && <p className="text-xs text-red-500">{errors.content}</p>}
+              {errors.content && (
+                <p className="text-xs text-red-500">{errors.content}</p>
+              )}
               <p className="text-sm text-gray-500 mt-1 text-left">0 Words</p>
             </div>
 

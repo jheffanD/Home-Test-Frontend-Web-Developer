@@ -1,5 +1,40 @@
+"use client";
+
 import Image from "next/image";
+import debounce from "lodash.debounce";
+import { useState, useEffect } from "react";
 export default function section1() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [articles, setArticles] = useState([]);
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Debounced version of fetchArticles
+  const fetchArticlesDebounced = debounce(async (query) => {
+    if (query) {
+      try {
+        const response = await Viewitem(query); // Ganti dengan API pencarian artikel yang sesuai
+        setArticles(response); // Asumsikan response adalah array artikel
+      } catch (error) {
+        console.error("Error fetching articles:", error);
+      }
+    } else {
+      setArticles([]); // Kosongkan hasil artikel jika query kosong
+    }
+  }, 500); // Debounce dengan delay 500ms
+
+  // Memanggil pencarian artikel ketika query berubah
+  useEffect(() => {
+    fetchArticlesDebounced(searchQuery);
+
+    // Cleanup debounce on unmount
+    return () => {
+      fetchArticlesDebounced.cancel();
+    };
+  }, [searchQuery]);
+
   return (
     <main>
       <section className="w-full min-h-screen bg-blue-600 relative flex flex-col items-center justify-center text-white px-4">
@@ -46,6 +81,8 @@ export default function section1() {
             />
             <input
               type="text"
+              value={searchQuery}
+              onChange={handleSearchChange}
               placeholder="Search articles"
               className="w-full py-2 px-4 rounded-md outline-none text-black"
             />

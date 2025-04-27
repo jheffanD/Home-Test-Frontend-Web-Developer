@@ -3,7 +3,7 @@ import axios from "axios";
 async function Getitem() {
   try {
     const res = await axios.get(
-      "https://mocki.io/v1/594cbe0d-5345-43cd-bd0e-ec473b861d2f"
+      "https://mocki.io/v1/11fc7926-014f-4a60-a932-f12e93fc834e"
     );
     return res.data;
   } catch (error) {
@@ -72,6 +72,6 @@ export async function Viewitem(id) {
 
     return doc;
   } catch (error) {
-    throw new Error("Failed to fetch article");
+    // throw  Error("Failed to fetch article");
   }
 }

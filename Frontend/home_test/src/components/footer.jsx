@@ -3,10 +3,17 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
+  const excludedPaths = [
+    "/app/Login",
+    "/app/register",
+    "/admin/artikel/crud",
+    "/admin/artikel/up",
+  ];
+
   return (
     <main>
-         {/* agar footer tidak muncul di page regis dan login */}
-      {pathname !== "/app/Login" || pathname !== "/app/register" && (
+      {/* agar footer tidak muncul di page regis dan login */}
+      {!excludedPaths.includes(pathname) && (
         <footer className="flex justify-center items-center h-20 bg-blue-600 text-white">
           <Image
             src="/img/Logo.png"

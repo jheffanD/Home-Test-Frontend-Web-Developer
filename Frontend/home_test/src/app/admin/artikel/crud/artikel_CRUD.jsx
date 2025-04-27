@@ -13,6 +13,17 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function ArtikelCrud() {
   const [data, setData] = useState([]);
@@ -101,50 +112,47 @@ export default function ArtikelCrud() {
                 </tr>
               </thead>
               <tbody className="bg-gray-50 border-t border border-slate-200">
-                {currentItems.map((item, index) => (
-                  <tr key={index}>
-                    <td className="px-4 py-2 flex items-center justify-center">
-                      <img
-                        src={item.image}
-                        alt="Thumbnail"
-                        width={60}
-                        height={60}
-                        className="rounded-sm border border-slate-600"
-                      />
-                    </td>
-                    <td className="px-4  text-left">{item.title}</td>
-                    <td className="px-4 text-center">
-                      {item.tags.map((tag, index) => (
-                        <span key={index} className="mr-2">
-                          {tag},
-                        </span>
-                      ))}
-                    </td>
+                {currentItems.map(
+                  (item, index) => (
+                    console.log(item.id),
+                    (
+                      <tr key={index}>
+                        <td className="px-4 py-2 flex items-center justify-center">
+                          <img
+                            src={item.image}
+                            alt="Thumbnail"
+                            width={60}
+                            height={60}
+                            className="rounded-sm border border-slate-600"
+                          />
+                        </td>
+                        <td className="px-4  text-left">{item.title}</td>
+                        <td className="px-4 text-center">{item.category}</td>
 
-                    <td className="px-4  text-center">{item.date}</td>
-                    <td className="px-4  text-center">
-                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                        <Link href="#">
-                          <span>Priview</span>
-                        </Link>
-                      </button>
-                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                        <Link href="#">
-                          <span>Edit</span>
-                        </Link>
-                      </button>
-                      <button className=" text-red-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                        <Link href="#">
-                          <span>Edit</span>
-                        </Link>
-                      </button>
-                    </td>
-                  </tr>
-                ))}
+                        <td className="px-4  text-center">{item.date}</td>
+                        <td className="px-4  text-center">
+                          <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
+                            <Link href="#">
+                              <span>Priview</span>
+                            </Link>
+                          </button>
+                          <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
+                            <Link href={`/admin/artikel/edit/${item.id}`}>
+                              {<span>Edit</span>}
+                            </Link>
+                          </button>
+                          <button className=" text-red-600 underline rounded-md px-1 py-1 text-sm cursor-pointer">
+                            <DeleteButton />
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  )
+                )}
               </tbody>
             </table>
           </section>
-          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-center text-base font-medium">
+          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-center text-base font-medium sticky top-0 z-10">
             <div className="flex items-center justify-center space-x-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -182,5 +190,28 @@ export default function ArtikelCrud() {
         </div>
       </section>
     </main>
+  );
+}
+
+function DeleteButton() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger className="underline text-red-600 flex items-center ml-2 mt-2">
+        Delete
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete Articles</AlertDialogTitle>
+          <AlertDialogDescription>
+            Deleting this article is permanent and cannot be undone. All related
+            content will be removed.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
