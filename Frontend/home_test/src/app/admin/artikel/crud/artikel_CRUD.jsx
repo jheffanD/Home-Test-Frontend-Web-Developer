@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 export default function ArtikelCrud() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 9;
+  const itemsPerPage = 8;
   const [error, setError] = useState(null);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -52,7 +52,7 @@ export default function ArtikelCrud() {
         <div className="w-full h-[47rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
           {/* ini pertama */}
           <section className="w-full  p-[24px] gap-[10px] rounded-t-md bg-gray-50  border border-slate-200 flex text-base font-medium text-slate-800 ">
-            <span>Total Articles : 25</span>
+            <span>Total Articles : {data.length} </span>
           </section>
           {/* ini kedua */}
           <section className="w-full p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex text-base font-medium">
@@ -83,7 +83,7 @@ export default function ArtikelCrud() {
                   width={20}
                   height={20}
                 />
-                Add Article
+                <Link href="/admin/artikel/up">Add Article</Link>
               </button>
             </div>
           </section>
