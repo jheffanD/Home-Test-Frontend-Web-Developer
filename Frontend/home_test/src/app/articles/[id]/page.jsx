@@ -22,7 +22,7 @@ export default async function ArticleDetail({ params }) {
           alt={article.title}
           className="mb-5 rounded-md h-[70vh] w-[140vh] object-cover"
         />
-        <div className="text-left text-slate-700 text-base p-10">
+        <div className="text-left flex flex-col justify-center ml-32 text-slate-700 text-base p-10">
           <section className="mb-5">
             <p>
               In the ever-evolving world of digital product design,

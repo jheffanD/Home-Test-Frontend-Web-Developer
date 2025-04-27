@@ -36,11 +36,16 @@ export default function Navbar() {
   const logoSrc = isWhiteLogo ? "/img/Frame.png" : "/img/Logo.png";
 
   const textColor = isWhiteLogo ? "text-black" : "text-white";
-
+  const excludedPaths = [
+    "/app/Login",
+    "/app/register",
+    "/admin/artikel/crud",
+    "/admin/artikel/up",
+  ];
   return (
     <main>
       {/* agar navbar tidak muncul di page regis dan login */}
-      {pathname !== "/app/Login" || pathname !== "/app/register" && (  
+      {!excludedPaths.includes(pathname) && (
         <nav className="w-full h-14 bg-transparent fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-2 z-50">
           <div className="flex items-center ml-10">
             <Link href="/">

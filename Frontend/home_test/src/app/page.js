@@ -1,4 +1,4 @@
-"use client"
+
 import Listartikel from "@/app/user/List_artikel";
 export default function Home() {
   return (
