@@ -10,7 +10,7 @@ export default function Navbaradmin() {
   };
   // Mengatur menu yang aktif ke "articles" saat pertama kali halaman dimuat
   useEffect(() => {
-    handleMenuClick("articles");
+    handleMenuClick("");
   }, []); // Menjalankan sekali pada saat komponen pertama kali dimuat
 
   return (
@@ -51,7 +51,7 @@ export default function Navbaradmin() {
               height={20}
               className="mr-2"
             />
-            <span>Category</span>
+            <Link href="/admin/artikel/kategori">Category</Link>
           </div>
 
           {/* Logout */}
