@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Userbutton from "@/components/userbutton";
+import Adminbutton from "./adminbutton"
 import { usePathname } from "next/navigation";
 
 export default function Navtop() {
@@ -16,7 +16,7 @@ export default function Navtop() {
   } else if (pathname.startsWith("/admin/artikel/kategori")) {
     text = "Category";
   } else {
-    text = "None";
+    text = "User Profile";
   }
   const firstLetter = userName ? userName.charAt(0).toUpperCase() : "";
 
@@ -32,7 +32,7 @@ export default function Navtop() {
             <AvatarFallback> {firstLetter}</AvatarFallback>
           </Avatar>
         </div>
-        <Userbutton warna={"text-black"} />
+        <Adminbutton />
       </div>
     </nav>
   );
