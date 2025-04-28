@@ -28,7 +28,7 @@ import {
 export default function ArtikelCrud() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const itemsPerPage = 10;
   const [error, setError] = useState(null);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -58,9 +58,9 @@ export default function ArtikelCrud() {
   return (
     <main className="flex">
       <Navbaradmin />
-      <section className="min-h-screen flex-1  bg-gray-50 flex flex-col items-center px-4">
+      <section className="w-full  h-[65rem] xl:h-[65rem] flex-1  bg-gray-50 flex flex-col items-center px-4">
         <Navtop />
-        <div className="w-full h-[47rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
+        <div className="w-full h-[70rem] xl:h-[55rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
           {/* ini pertama */}
           <section className="w-full  p-[24px] gap-[10px] rounded-t-md bg-gray-50  border border-slate-200 flex text-base font-medium text-slate-800 ">
             <span>Total Articles : {data.length} </span>
@@ -72,9 +72,9 @@ export default function ArtikelCrud() {
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="light">Light</SelectItem>
-                <SelectItem value="dark">Dark</SelectItem>
-                <SelectItem value="system">System</SelectItem>
+                <SelectItem value="light">Technology</SelectItem>
+                <SelectItem value="dark">Desaign</SelectItem>
+                <SelectItem value="system">AI</SelectItem>
               </SelectContent>
             </Select>
 
@@ -111,12 +111,14 @@ export default function ArtikelCrud() {
                   <th className="px-4 py-2 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-50 border-t border border-slate-200">
+              <tbody className="bg-gray-50 border-t border border-slate-200 ">
                 {currentItems.map(
                   (item, index) => (
-                    console.log(item.id),
+                    
                     (
-                      <tr key={index}>
+                      <tr 
+                      className="border border-slate-200 mb-2"
+                      key={index}>
                         <td className="px-4 py-2 flex items-center justify-center">
                           <img
                             src={item.image}
@@ -141,7 +143,7 @@ export default function ArtikelCrud() {
                               {<span>Edit</span>}
                             </Link>
                           </button>
-                          <button className=" text-red-600 underline rounded-md px-1 py-1 text-sm cursor-pointer">
+                          <button className=" text-red-600 underline rounded-md py-1 text-sm cursor-pointer">
                             <DeleteButton />
                           </button>
                         </td>
@@ -152,7 +154,7 @@ export default function ArtikelCrud() {
               </tbody>
             </table>
           </section>
-          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-center text-base font-medium sticky top-0 z-10">
+          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-end text-base font-medium mb">
             <div className="flex items-center justify-center space-x-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -195,23 +197,25 @@ export default function ArtikelCrud() {
 
 function DeleteButton() {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger className="underline text-red-600 flex items-center ml-2 mt-2">
-        Delete
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Delete Articles</AlertDialogTitle>
-          <AlertDialogDescription>
-            Deleting this article is permanent and cannot be undone. All related
-            content will be removed.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger className="underline text-red-600 flex items-center ml-2 mt-2">
+          Delete
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete Articles</AlertDialogTitle>
+            <AlertDialogDescription>
+              Deleting this article is permanent and cannot be undone. All
+              related content will be removed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
