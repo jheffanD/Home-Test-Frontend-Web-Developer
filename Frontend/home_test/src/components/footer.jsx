@@ -8,6 +8,7 @@ export default function Footer() {
     "/app/register",
     "/admin/artikel/crud",
     "/admin/artikel/up",
+    "/admin/artikel/kategori",
   ];
 
   return (
