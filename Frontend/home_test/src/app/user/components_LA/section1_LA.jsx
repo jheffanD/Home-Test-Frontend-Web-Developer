@@ -37,7 +37,9 @@ export default function section1() {
     fetchArticlesDebounced(searchQuery);
 
     return () => {
-      fetchArticlesDebounced.cancel();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
     };
   }, [searchQuery]);
 
@@ -57,19 +59,19 @@ export default function section1() {
         {/* Blue Overlay */}
         <div className="absolute top-0 left-0 w-full h-full bg-blue-600 opacity-75 z-10"></div>
 
-        {/* Text Section */}
+        {/* Text Content */}
         <div className="text-center max-w-2xl z-20 relative">
           <p className="mb-2 text-sm">Blog genzet</p>
-          <h1 className="text-4xl  font-bold leading-tight mb-4">
+          <h1 className="text-4xl font-bold leading-tight mb-4">
             The Journal : Design Resources, <br /> Interviews, and Industry News
           </h1>
-          <p className="text-base ">Your daily dose of design insights!</p>
+          <p className="text-base">Your daily dose of design insights!</p>
         </div>
 
-        {/* Search Section */}
-        <div className=" max-w-xl mt-8 px-2 flex flex-row justify-center items-center gap-4 bg-blue-500 h-14 w-[30rem] rounded-lg z-20 relative font-normal">
+        {/* Search and Category Section */}
+        <div className="max-w-xl mt-8 px-2 flex flex-col sm:flex-row justify-center items-center gap-4 bg-blue-500 h-auto sm:h-14 w-full sm:w-[30rem] rounded-lg z-20 relative font-normal">
           {/* Select Category */}
-          <select className="w-40  bg-white text-black p-2 pr-2 rounded-md outline-none">
+          <select className="w-full sm:w-40 bg-white text-black p-2 rounded-md outline-none">
             <option>Select category</option>
             <option>Design</option>
             <option>Interview</option>
@@ -77,7 +79,7 @@ export default function section1() {
           </select>
 
           {/* Search Bar */}
-          <div className="flex-1 bg-white flex items-center rounded-md overflow-hidden">
+          <div className="flex-1 w-full bg-white flex items-center rounded-md overflow-hidden">
             <Image
               src="/img/search.png"
               alt="Search Icon"
@@ -90,7 +92,7 @@ export default function section1() {
               value={searchQuery}
               onChange={handleSearchChange}
               placeholder="Search articles"
-              className="w-full py-2 px-4 rounded-md outline-none text-black"
+              className="w-full py-2 px-4 outline-none text-black"
             />
           </div>
         </div>

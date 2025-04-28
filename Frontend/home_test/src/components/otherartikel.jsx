@@ -41,37 +41,45 @@ export default function OtherArtikel({ jumm }) {
 
   return (
     <main>
-      <section className="w-full min-h-screen bg-white flex flex-col sm:flex-row items-center px-4 ">
+      <section className="w-full min-h-screen bg-white flex flex-col items-center px-4">
         {/* Menampilkan informasi jumlah item hanya di root */}
         {pathname === "/" && (
-          <p className="text-gray-600 flex text-sm w-full text-left pl-10 mb-1">
+          <p className="text-gray-600 flex text-sm w-full text-left pl-4 mb-4">
             Showing : {currentItems.length} of {data.length} items
           </p>
         )}
 
-        <div className="grid grid-cols-3 gap-[5px] justify-center content-stretch">
+        {/* Grid Artikel */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
           {currentItems.map((item, index) => (
-            <div key={index} className="p-10">
+            <div
+              key={index}
+              className="bg-white rounded-2xl overflow-hidden shadow-md flex flex-col"
+            >
               <img
                 src={item.image}
                 alt={item.title}
-                className="mb-2 rounded-md h-50 w-100 object-cover"
+                className="w-full h-48 object-cover"
               />
-
-              <p className="text-gray-600 font-medium text-xs mb-2">
-                {item.date}
-              </p>
-              <h4 className="font-bold text-sm mb-2">
-                <Link href={`/articles/${item.id}`}>{item.title}</Link>
-              </h4>
-              <p className="text-gray-600 text-xs mb-2">{item.description}</p>
-              <div className="flex flex-wrap gap-1 mt-2">
-                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
-                  {item.category}
-                </span>
-                <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
-                  {item.tags}
-                </span>
+              <div className="p-4 flex flex-col gap-2">
+                <p className="text-gray-600 font-medium text-xs">{item.date}</p>
+                <h4 className="font-bold text-sm">
+                  <Link
+                    href={`/articles/${item.id}`}
+                    className="hover:underline"
+                  >
+                    {item.title}
+                  </Link>
+                </h4>
+                <p className="text-gray-600 text-xs">{item.description}</p>
+                <div className="flex flex-wrap gap-2 mt-2">
+                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    {item.category}
+                  </span>
+                  <span className="bg-blue-100 text-blue-800 text-xs font-semibold px-2 py-1 rounded-full">
+                    {item.tags}
+                  </span>
+                </div>
               </div>
             </div>
           ))}
@@ -92,9 +100,7 @@ export default function OtherArtikel({ jumm }) {
               key={i}
               onClick={() => setCurrentPage(i + 1)}
               className={`px-3 py-1 ${
-                currentPage === i + 1
-                  ? "bg-transparent border-1 border-black rounded-md"
-                  : ""
+                currentPage === i + 1 ? "border border-black rounded-md" : ""
               }`}
             >
               {i + 1}
