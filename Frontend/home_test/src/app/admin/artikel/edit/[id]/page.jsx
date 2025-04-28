@@ -33,7 +33,7 @@ export default async function ArtikelEdit({ params }) {
             <label className="text-sm font-medium text-gray-900 mb-2">
               Thumbnails
             </label>
-            <div className="border-2 w-52 h-52 p-4 border bg-white border-gray-300 rounded-xl flex flex-col items-center justify-center mb-2">
+            <div className="w-52 h-52 p-4 border bg-white border-gray-300 rounded-xl flex flex-col items-center justify-center mb-2">
               <div className="cursor-pointer text-slate-500 flex flex-col items-center text-center">
                 <img src={article.image} alt="Thumbnail" className="mb-2 rounded-lg" />
                 <div className="text-xs font-normal ">

@@ -58,14 +58,13 @@ export default function ArtikelCrud() {
   return (
     <main className="flex">
       <Navbaradmin />
-      <section className="w-full  h-[65rem] xl:h-[65rem] flex-1  bg-gray-50 flex flex-col items-center px-4">
+      <section className="w-full h-[73rem] xl:h-[65rem] flex-1  bg-gray-50 flex flex-col items-center px-4">
         <Navtop />
-        <div className="w-full h-[70rem] xl:h-[55rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
-          {/* ini pertama */}
+        <div className="w-full h-[70rem] xl:h-[60rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
           <section className="w-full  p-[24px] gap-[10px] rounded-t-md bg-gray-50  border border-slate-200 flex text-base font-medium text-slate-800 ">
             <span>Total Articles : {data.length} </span>
           </section>
-          {/* ini kedua */}
+
           <section className="w-full p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex text-base font-medium">
             <Select>
               <SelectTrigger>
@@ -100,9 +99,9 @@ export default function ArtikelCrud() {
           </section>
 
           {/* ini ke tiga */}
-          <section className="w-full  px-[24px] pt-[10px] gap-[10px] mb-5 border border-slate-200 flex items-center text-base font-medium">
+          <section className="px-[24px] pt-[10px] gap-[10px] mb-5 border border-slate-200 flex items-center text-base font-medium">
             <table className="w-full table-fixed">
-              <thead className="sticky top-0  z-10">
+              <thead className="">
                 <tr className="text-slate-900 text-sm border-b border-slate-200 font-medium">
                   <th className="px-4 py-2 text-center">Thumbnails</th>
                   <th className="px-4 py-2 text-center">Title</th>
@@ -112,45 +111,38 @@ export default function ArtikelCrud() {
                 </tr>
               </thead>
               <tbody className="bg-gray-50 border-t border border-slate-200 ">
-                {currentItems.map(
-                  (item, index) => (
-                    
-                    (
-                      <tr 
-                      className="border border-slate-200 mb-2"
-                      key={index}>
-                        <td className="px-4 py-2 flex items-center justify-center">
-                          <img
-                            src={item.image}
-                            alt="Thumbnail"
-                            width={60}
-                            height={60}
-                            className="rounded-sm border border-slate-600"
-                          />
-                        </td>
-                        <td className="px-4  text-left">{item.title}</td>
-                        <td className="px-4 text-center">{item.category}</td>
+                {currentItems.map((item, index) => (
+                  <tr className="border border-slate-200 mb-2" key={index}>
+                    <td className="px-4 py-2 flex items-center justify-center">
+                      <img
+                        src={item.image}
+                        alt="Thumbnail"
+                        width={60}
+                        height={60}
+                        className="rounded-sm border border-slate-600"
+                      />
+                    </td>
+                    <td className="px-4  text-left">{item.title}</td>
+                    <td className="px-4 text-center">{item.category}</td>
 
-                        <td className="px-4  text-center">{item.date}</td>
-                        <td className="px-4  text-center">
-                          <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                            <Link href="#">
-                              <span>Priview</span>
-                            </Link>
-                          </button>
-                          <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                            <Link href={`/admin/artikel/edit/${item.id}`}>
-                              {<span>Edit</span>}
-                            </Link>
-                          </button>
-                          <button className=" text-red-600 underline rounded-md py-1 text-sm cursor-pointer">
-                            <DeleteButton />
-                          </button>
-                        </td>
-                      </tr>
-                    )
-                  )
-                )}
+                    <td className="px-4  text-center">{item.date}</td>
+                    <td className="px-4  text-center">
+                    <div className="flex items-center justify-center">
+                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
+                        <Link href="#">
+                          <span>Priview</span>
+                        </Link>
+                      </button>
+                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
+                        <Link href={`/admin/artikel/edit/${item.id}`}>
+                          {<span>Edit</span>}
+                        </Link>
+                      </button>
+                      <DeleteButton />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </section>
@@ -199,7 +191,7 @@ function DeleteButton() {
   return (
     <>
       <AlertDialog>
-        <AlertDialogTrigger className="underline text-red-600 flex items-center ml-2 mt-2">
+        <AlertDialogTrigger className="underline text-sm cursor-pointer text-red-600 flex items-center ">
           Delete
         </AlertDialogTrigger>
         <AlertDialogContent>
