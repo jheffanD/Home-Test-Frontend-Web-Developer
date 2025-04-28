@@ -43,6 +43,7 @@ export default function Navbar() {
     "/admin/artikel/up",
     "/admin/artikel/edit/[id]",
     "/admin/artikel/kategori",
+    "/admin/artikel/profile",
   ];
   return (
     <main>
