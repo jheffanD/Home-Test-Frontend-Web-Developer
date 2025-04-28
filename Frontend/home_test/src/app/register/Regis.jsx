@@ -18,8 +18,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
-  const [role, setRole] = useState("");
+  const [errors, setErrors] = useState("");
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -29,9 +28,7 @@ export default function Login() {
     e.preventDefault();
     const newErrors = {};
     if (!username) newErrors.username = "Username field cannot be empty";
-    if (!password || password.length < 8)
-      newErrors.password = "Password must be at least 8 characters long";
-    if (!role) newErrors.role = "Please select a role";
+    if (!password) newErrors.password = "Passsword must be at least 8 characters long"; 
 
     setErrors(newErrors);
 
@@ -40,82 +37,90 @@ export default function Login() {
       // lanjut login
     }
   };
-
   return (
-    <main className="w-full min-h-screen bg-gray-100 flex items-center justify-center px-4">
-      <section className="bg-white text-slate-900 w-full max-w-sm rounded-lg border-2 shadow-md p-8 flex flex-col gap-6">
-        {/* Logo */}
-        <div className="flex justify-center">
-          <Image src="/img/Frame.png" alt="Logo" width={134} height={24} />
-        </div>
-
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-6 text-sm">
-          {/* Username */}
-          <div className="flex flex-col gap-1">
-            <label className="font-semibold ml-1">Username</label>
-            <Input
-              className="w-full"
-              placeholder="Input username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
-            {errors.username && (
-              <p className="text-red-500 text-xs pl-1">{errors.username}</p>
-            )}
-          </div>
-
-          {/* Password */}
-          <div className="flex flex-col gap-1 relative">
-            <label className="font-semibold ml-1">Password</label>
-            <Input
-              className="w-full pr-10"
-              type={showPassword ? "text" : "password"}
-              placeholder="Input password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <div
-              onClick={togglePassword}
-              className="absolute right-3 top-9 cursor-pointer text-gray-500"
-            >
-              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+    <main>
+      <section className="w-full min-h-screen bg-gray-100  flex flex-col items-center justify-center ">
+        {/* iki root nya */}
+        <div className="bg-white text-slate-900 w-[400px] h-[452px] flex flex-col text-center rounded-lg justify-center border-2">
+          <section className="flex justify-center mb-6">
+            <Image src={"/img/Frame.png"} alt="Logo" width={134} height={24} />
+          </section>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col text-sm  text-slate-900"
+          >
+            <div className="flex flex-col items-center gap-2 mb-4 ">
+              <label className="w-full text-left ml-7 font-semibold">
+                Username
+              </label>
+              <Input
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-[368px]  "
+                placeholder="Input username"
+              />
+              {errors.username && (
+                <p className="text-red-500 text-xs w-full text-left pl-5">
+                  {errors.username}
+                </p>
+              )}
             </div>
-            {errors.password && (
-              <p className="text-red-500 text-xs pl-1">{errors.password}</p>
-            )}
-          </div>
 
-          {/* Role */}
-          <div className="flex flex-col gap-1">
-            <label className="font-semibold ml-1">Role</label>
-            <Select value={role} onValueChange={(value) => setRole(value)}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select Your Role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="admin">Admin</SelectItem>
-                <SelectItem value="user">User</SelectItem>
-              </SelectContent>
-            </Select>
-            {errors.role && (
-              <p className="text-red-500 text-xs pl-1">{errors.role}</p>
-            )}
-          </div>
+            <div className="flex flex-col items-center gap-2 mb-4 relative">
+              <label className="w-full text-left ml-7 font-semibold">
+                Password
+              </label>
+              <Input
+                className="w-[368px] pr-10"
+                type={showPassword ? "text" : "password"}
+                placeholder="Input password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div
+                onClick={togglePassword}
+                className="absolute right-8 top-9 cursor-pointer text-gray-500"
+              >
+                {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
+              </div>
+              {errors.password && (
+                <p className="text-red-500 text-xs w-full text-left pl-5">
+                  {errors.password}
+                </p>
+              )}
+            </div>
 
-          {/* Button */}
-          <Button type="submit" className="w-full bg-blue-600 text-white">
-            Register
-          </Button>
-        </form>
+            <div className="flex flex-col items-center gap-2 mb-4">
+              <label className="w-full text-left ml-7 font-semibold">
+                Role
+              </label>
+              <Select>
+                <SelectTrigger className="w-[368px]">
+                  <SelectValue placeholder="Select Your Role" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="admin">Admin</SelectItem>
+                  <SelectItem value="user">User</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-        {/* Register Link */}
-        <p className="text-center text-sm text-gray-600">
-          Already have an account?{" "}
-          <Link href="/Login" className="text-blue-600 hover:underline">
-            Login
-          </Link>
-        </p>
+            <div className="flex flex-col items-center gap-2 mb-2">
+              <Button
+                type="submit"
+                className="w-[368px]  bg-blue-600 text-white"
+              >
+                Register
+              </Button>
+            </div>
+          </form>
+          <p className="text-center text-sm text-gray-600 mt-4">
+            Already have an account?{" "}
+            <Link href="/Login" className="text-blue-600 hover:underline">
+              Login
+            </Link>
+          </p>
+        </div>
       </section>
     </main>
   );
