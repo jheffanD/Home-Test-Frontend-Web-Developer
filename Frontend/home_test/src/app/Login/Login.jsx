@@ -26,14 +26,14 @@ export default function Login() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Login sukses!");
+      console.log("Login successful!");
     }
   };
 
   return (
     <main>
-      <section className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center">
-        <div className="bg-white text-slate-900 w-[400px] h-[452px] flex flex-col text-center rounded-lg justify-center border-2">
+      <section className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center py-8 px-4">
+        <div className="bg-white text-slate-900 w-full max-w-[400px] h-auto flex flex-col text-center rounded-lg justify-center border-2 p-6">
           <section className="flex justify-center mb-6">
             <Image src={"/img/Frame.png"} alt="Logo" width={134} height={24} />
           </section>
@@ -43,12 +43,12 @@ export default function Login() {
             className="flex flex-col text-sm text-slate-900"
           >
             {/* Username */}
-            <div className="flex flex-col items-center gap-2 mb-4">
+            <div className="flex flex-col items-start gap-2 mb-4">
               <label className="w-full text-left ml-7 font-semibold">
                 Username
               </label>
               <Input
-                className="w-[368px]"
+                className="w-full sm:w-[368px]"
                 placeholder="Input username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -61,12 +61,12 @@ export default function Login() {
             </div>
 
             {/* Password */}
-            <div className="flex flex-col items-center gap-2 mb-4 relative">
+            <div className="flex flex-col items-start gap-2 mb-4 relative">
               <label className="w-full text-left ml-7 font-semibold">
                 Password
               </label>
               <Input
-                className="w-[368px] pr-10"
+                className="w-full sm:w-[368px] pr-10"
                 type={showPassword ? "text" : "password"}
                 placeholder="Input password"
                 value={password}
@@ -85,18 +85,18 @@ export default function Login() {
               )}
             </div>
 
-            {/* Button */}
-            <div className="flex flex-col items-center gap-2 mb-2">
+            {/* Submit Button */}
+            <div className="flex flex-col items-center gap-2 mb-4">
               <Button
                 type="submit"
-                className="w-[368px] bg-blue-600 text-white"
+                className="w-full sm:w-[368px] bg-blue-600 text-white"
               >
                 Login
               </Button>
             </div>
           </form>
 
-          {/* Sudah punya akun */}
+          {/* Register Link */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
             <Link href="/register" className="text-blue-600 hover:underline">

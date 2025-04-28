@@ -86,33 +86,37 @@ export default function OtherArtikel({ jumm }) {
         </div>
 
         {/* Pagination */}
-        <div className="flex items-center gap-2 mt-8">
+        <div className="flex flex-col md:flex-row items-center justify-between mt-8">
           <button
             onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
             disabled={currentPage === 1}
-            className="px-3 py-1 text-gray-600 disabled:opacity-50"
+            className="px-4 py-2 text-gray-600 disabled:opacity-50 transition duration-200 ease-in-out hover:bg-gray-200 rounded-md"
           >
             &lt; Previous
           </button>
 
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setCurrentPage(i + 1)}
-              className={`px-3 py-1 ${
-                currentPage === i + 1 ? "border border-black rounded-md" : ""
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
+          <div className="flex items-center gap-2 mt-2 md:mt-0">
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`px-3 py-1 text-sm md:text-base transition duration-200 ease-in-out ${
+                  currentPage === i + 1
+                    ? "border border-black rounded-md bg-gray-200"
+                    : "text-gray-600 hover:bg-gray-200"
+                }`}
+              >
+                {i + 1}
+              </button>
+            ))}
+          </div>
 
           <button
             onClick={() =>
               setCurrentPage((prev) => Math.min(prev + 1, totalPages))
             }
             disabled={currentPage === totalPages}
-            className="px-3 py-1 text-gray-600 disabled:opacity-50"
+            className="px-4 py-2 text-gray-600 disabled:opacity-50 transition duration-200 ease-in-out hover:bg-gray-200 rounded-md"
           >
             Next &gt;
           </button>

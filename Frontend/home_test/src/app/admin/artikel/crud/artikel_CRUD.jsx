@@ -52,32 +52,42 @@ export default function ArtikelCrud() {
     };
     loadProduckt();
   }, []);
-  if (error) return <div>Error: {error}</div>; // Menampilkan error jika ada masalah
-  if (!data.length) return <div>Loading...</div>; // Menunggu data produk
+
+  if (error) return <div>Error: {error}</div>;
+  if (!data.length) return <div>Loading...</div>;
+
   const totalPages = Math.ceil(data.length / itemsPerPage);
   return (
-    <main className="flex">
+    <main className="flex flex-col lg:flex-row">
       <Navbaradmin />
-      <section className="w-full h-[73rem] xl:h-[65rem] flex-1  bg-gray-50 flex flex-col items-center px-4">
-        <Navtop />
-        <div className="w-full h-[70rem] xl:h-[60rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
-          <section className="w-full  p-[24px] gap-[10px] rounded-t-md bg-gray-50  border border-slate-200 flex text-base font-medium text-slate-800 ">
-            <span>Total Articles : {data.length} </span>
+      <section className="w-full lg:w-[calc(100%-240px)] h-[73rem] xl:h-[65rem] flex-1 bg-gray-50 flex flex-col items-center px-4">
+        {/* Hide Navtop on mobile and show on larger screens */}
+        <div className="lg:block hidden">
+          <Navtop />
+        </div>
+
+        <div className="w-full h-auto xl:h-[60rem] mb-14 rounded-md bg-slate-200 border flex flex-col mt-20">
+          <section className="w-full p-[24px] gap-[10px] rounded-t-md bg-gray-50 border border-slate-200 flex text-base font-medium text-slate-800">
+            <span>Total Articles : {data.length}</span>
           </section>
 
-          <section className="w-full p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex text-base font-medium">
-            <Select>
-              <SelectTrigger>
-                <SelectValue placeholder="Category" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="light">Technology</SelectItem>
-                <SelectItem value="dark">Desaign</SelectItem>
-                <SelectItem value="system">AI</SelectItem>
-              </SelectContent>
-            </Select>
+          <section className="w-full p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex flex-col sm:flex-row sm:justify-between items-center">
+            {/* Category Dropdown */}
+            <div className="w-full sm:w-auto mb-4 sm:mb-0">
+              <Select className="w-full">
+                <SelectTrigger>
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="light">Technology</SelectItem>
+                  <SelectItem value="dark">Design</SelectItem>
+                  <SelectItem value="system">AI</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-            <div className="flex-1 max-w-52 bg-white flex items-center rounded-md">
+            {/* Search Input */}
+            <div className="w-full sm:w-auto flex-1 max-w-[250px] sm:max-w-[400px] bg-white flex items-center rounded-md mb-4 sm:mb-0">
               <Input
                 type="text"
                 placeholder="Search by title"
@@ -85,7 +95,9 @@ export default function ArtikelCrud() {
                 iconAlt="Search Icon"
               />
             </div>
-            <div className="flex items-center justify-end ml-auto">
+
+            {/* Add Artikel Button */}
+            <div className="w-full sm:w-auto flex items-center justify-center sm:ml-4">
               <button className="bg-blue-600 text-slate-50 text-sm font-medium rounded-md px-4 py-2 flex items-center gap-2">
                 <Image
                   src="/img/plus.png"
@@ -98,55 +110,56 @@ export default function ArtikelCrud() {
             </div>
           </section>
 
-          {/* ini ke tiga */}
+          {/* Table Section */}
           <section className="px-[24px] pt-[10px] gap-[10px] mb-5 border border-slate-200 flex items-center text-base font-medium">
-            <table className="w-full table-fixed">
-              <thead className="">
-                <tr className="text-slate-900 text-sm border-b border-slate-200 font-medium">
-                  <th className="px-4 py-2 text-center">Thumbnails</th>
-                  <th className="px-4 py-2 text-center">Title</th>
-                  <th className="px-4 py-2 text-center">Category</th>
-                  <th className="px-4 py-2 text-center">Created at</th>
-                  <th className="px-4 py-2 text-center">Action</th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-50 border-t border border-slate-200 ">
-                {currentItems.map((item, index) => (
-                  <tr className="border border-slate-200 mb-2" key={index}>
-                    <td className="px-4 py-2 flex items-center justify-center">
-                      <img
-                        src={item.image}
-                        alt="Thumbnail"
-                        width={60}
-                        height={60}
-                        className="rounded-sm border border-slate-600"
-                      />
-                    </td>
-                    <td className="px-4  text-left">{item.title}</td>
-                    <td className="px-4 text-center">{item.category}</td>
-
-                    <td className="px-4  text-center">{item.date}</td>
-                    <td className="px-4  text-center">
-                    <div className="flex items-center justify-center">
-                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                        <Link href="#">
-                          <span>Priview</span>
-                        </Link>
-                      </button>
-                      <button className=" text-blue-600 underline rounded-md px-2 py-1 text-sm cursor-pointer">
-                        <Link href={`/admin/artikel/edit/${item.id}`}>
-                          {<span>Edit</span>}
-                        </Link>
-                      </button>
-                      <DeleteButton />
-                      </div>
-                    </td>
+            <div className="overflow-x-auto w-full">
+              <table className="min-w-full table-fixed">
+                <thead>
+                  <tr className="text-slate-900 text-sm border-b border-slate-200 font-medium">
+                    <th className="px-4 py-2 text-center">Thumbnails</th>
+                    <th className="px-4 py-2 text-center">Title</th>
+                    <th className="px-4 py-2 text-center">Category</th>
+                    <th className="px-4 py-2 text-center">Created at</th>
+                    <th className="px-4 py-2 text-center">Action</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="bg-gray-50 border-t border border-slate-200">
+                  {currentItems.map((item, index) => (
+                    <tr className="border border-slate-200 mb-2" key={index}>
+                      <td className="px-4 py-2 flex items-center justify-center">
+                        <img
+                          src={item.image}
+                          alt="Thumbnail"
+                          width={60}
+                          height={60}
+                          className="rounded-sm border border-slate-600"
+                        />
+                      </td>
+                      <td className="px-4 text-left">{item.title}</td>
+                      <td className="px-4 text-center">{item.category}</td>
+                      <td className="px-4 text-center">{item.date}</td>
+                      <td className="px-4 text-center">
+                        <div className="flex items-center justify-center space-x-4">
+                          <button className="text-blue-600 underline text-sm cursor-pointer">
+                            <Link href="#">Preview</Link>
+                          </button>
+                          <button className="text-blue-600 underline text-sm cursor-pointer">
+                            <Link href={`/admin/artikel/edit/${item.id}`}>
+                              Edit
+                            </Link>
+                          </button>
+                          <DeleteButton />
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
-          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-end text-base font-medium mb">
+
+          {/* Pagination Section */}
+          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex justify-center items-end text-base font-medium">
             <div className="flex items-center justify-center space-x-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -189,25 +202,23 @@ export default function ArtikelCrud() {
 
 function DeleteButton() {
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger className="underline text-sm cursor-pointer text-red-600 flex items-center ">
-          Delete
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Articles</AlertDialogTitle>
-            <AlertDialogDescription>
-              Deleting this article is permanent and cannot be undone. All
-              related content will be removed.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger className="underline text-sm cursor-pointer text-red-600">
+        Delete
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete Articles</AlertDialogTitle>
+          <AlertDialogDescription>
+            Deleting this article is permanent and cannot be undone. All related
+            content will be removed.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

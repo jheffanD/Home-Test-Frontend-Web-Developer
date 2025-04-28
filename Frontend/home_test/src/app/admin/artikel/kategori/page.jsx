@@ -55,22 +55,26 @@ export default function Kategori() {
     };
     loadProduckt();
   }, []);
-  if (error) return <div>Error: {error}</div>; // Menampilkan error jika ada masalah
-  if (!data.length) return <div>Loading...</div>; // Menunggu data produk
+
+  if (error) return <div>Error: {error}</div>;
+  if (!data.length) return <div>Loading...</div>;
   const totalPages = Math.ceil(data.length / itemsPerPage);
 
   return (
-    <main className="flex">
+    <main className="flex flex-col md:flex-row">
       <Navbaradmin />
-      <section className="w-full lg:h-[73rem] xl:h-[75rem]  flex-1  bg-gray-50 flex flex-col items-center px-4">
-        <Navtop />
-        <div className="w-full h-[70rem] xl:h-[60rem] mb-14 rounded-md bg-slate-200 border  flex flex-col mt-20 ">
-          <section className="w-full  p-[24px] gap-[10px] rounded-t-md bg-gray-50  border border-slate-200 flex text-base font-medium text-slate-800 ">
-            <span>Total Category : {data.length} </span>
+      <section className="w-full lg:h-[73rem] xl:h-[75rem] flex-1 bg-gray-50 flex flex-col items-center px-4">
+        <div className="lg:block hidden">
+          <Navtop />
+        </div>
+        <div className="w-full h-auto mb-14 rounded-md bg-slate-200 border flex flex-col mt-20">
+          <section className="w-full p-6 gap-3 rounded-t-md bg-gray-50 border flex text-base font-medium text-slate-800">
+            <span>Total Category: {data.length}</span>
           </section>
 
-          <section className="w-full p-[24px] gap-[10px] bg-gray-50 border border-slate-200 flex text-base font-medium">
-            <div className="flex-1 max-w-52 bg-white flex items-center rounded-md">
+          <section className="w-full p-6 gap-3 bg-gray-50 border border-slate-200 flex flex-col sm:flex-row sm:justify-between items-center">
+            {/* Search Input */}
+            <div className="flex-1 max-w-[250px] sm:max-w-[400px] bg-white flex items-center rounded-md mb-4 sm:mb-0">
               <Input
                 type="text"
                 placeholder="Search Category"
@@ -78,35 +82,30 @@ export default function Kategori() {
                 iconAlt="Search Icon"
               />
             </div>
-            <div className="flex items-center justify-end ml-auto gap-2 cursor-pointer">
+            {/* Add Category Button */}
+            <div className="w-full sm:w-auto flex items-center justify-center sm:ml-4 mt-4 sm:mt-0">
               <button className="bg-blue-600 text-slate-50 text-sm font-medium rounded-md px-4 py-2 flex items-center gap-2">
-                <Image
-                  src="/img/plus.png"
-                  alt="tambah"
-                  width={20}
-                  height={20}
-                />
+                <Image src="/img/plus.png" alt="Add" width={20} height={20} />
                 <Addkategori />
               </button>
             </div>
           </section>
 
-          <section className="px-[20px] pt-[10px] gap-[10px] mb-5 border border-slate-200 flex items-center text-base font-medium">
+          <section className="px-6 pt-4 gap-3 mb-5 border border-slate-200 flex items-center text-base font-medium">
             <table className="w-full table-fixed">
-              <thead className="sticky top-0  z-10">
+              <thead className="sticky top-0 z-10 bg-gray-50">
                 <tr className="text-slate-900 text-sm border-b border-slate-200 font-medium">
                   <th className="px-4 py-2 text-center">Category</th>
                   <th className="px-4 py-2 text-center">Created at</th>
                   <th className="px-4 py-2 text-center">Action</th>
                 </tr>
               </thead>
-              <tbody className="bg-gray-50 border-t border border-slate-200 ">
+              <tbody className="bg-white border-t border border-slate-200">
                 {currentItems.map((item, index) => (
-                  <tr className="border border-slate-200 mb-2 " key={index}>
-                    <td className="p-[24px] text-center">{item.category}</td>
-
-                    <td className="px-4  text-center">{item.date}</td>
-                    <td className="px-4  text-center">
+                  <tr className="border border-slate-200 mb-2" key={index}>
+                    <td className="p-6 text-center">{item.category}</td>
+                    <td className="px-4 text-center">{item.date}</td>
+                    <td className="px-4 text-center">
                       <div className="flex items-center gap-5 justify-center">
                         <Edit />
                         <DeleteButton />
@@ -118,7 +117,7 @@ export default function Kategori() {
             </table>
           </section>
 
-          <section className="w-full mb-5 p-[24px] gap-[10px] bg-gray-50 border rounded-b-md border-slate-200 flex justify-center items-end text-base font-medium mb">
+          <section className="w-full mb-5 p-6 gap-3 bg-gray-50 border rounded-b-md border-slate-200 flex justify-center items-end text-base font-medium">
             <div className="flex items-center justify-center space-x-2">
               <button
                 onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
@@ -161,26 +160,24 @@ export default function Kategori() {
 
 function DeleteButton() {
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger className="underline text-sm cursor-pointer text-red-600 flex items-center ">
-          Delete
-        </AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Delete Category</AlertDialogTitle>
-            <AlertDialogDescription>
-              Delete category “Technology”? This will remove it from master data
-              permanently.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger className="underline text-sm cursor-pointer text-red-600 flex items-center">
+        Delete
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Delete Category</AlertDialogTitle>
+          <AlertDialogDescription>
+            Delete category “Technology”? This will remove it from master data
+            permanently.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction className="bg-red-500">Delete</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
@@ -191,19 +188,15 @@ function Addkategori() {
   const handleAddCategory = (e) => {
     e.preventDefault();
 
-    // Cek apakah input kosong
     if (!category) {
       setError("Category field cannot be empty");
 
-      // Menghapus pesan error setelah 1 detik
       setTimeout(() => {
         setError("");
       }, 1000);
     } else {
       setError("");
-      // Logika untuk menambahkan kategori atau aksi lainnya
       console.log("Category added:", category);
-      // Reset input jika berhasil
       setCategory("");
     }
   };
@@ -252,6 +245,7 @@ function Addkategori() {
     </Dialog>
   );
 }
+
 function Edit() {
   const [category, setCategory] = useState("");
   const [error, setError] = useState("");
@@ -259,19 +253,15 @@ function Edit() {
   const handleAddCategory = (e) => {
     e.preventDefault();
 
-    // Cek apakah input kosong
     if (!category) {
       setError("Category field cannot be empty");
 
-      // Menghapus pesan error setelah 1 detik
       setTimeout(() => {
         setError("");
       }, 1000);
     } else {
       setError("");
-      // Logika untuk menambahkan kategori atau aksi lainnya
       console.log("Category added:", category);
-      // Reset input jika berhasil
       setCategory("");
     }
   };
@@ -279,7 +269,7 @@ function Edit() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <span className="text-sm  underline cursor-pointer text-blue-600 flex items-center">
+        <span className="text-sm underline cursor-pointer text-blue-600 flex items-center">
           Edit
         </span>
       </DialogTrigger>
@@ -312,7 +302,7 @@ function Edit() {
               onClick={handleAddCategory}
               className="bg-blue-600 border hover:bg-blue-800"
             >
-              Save Changes
+              Edit
             </Button>
           </div>
         </DialogFooter>

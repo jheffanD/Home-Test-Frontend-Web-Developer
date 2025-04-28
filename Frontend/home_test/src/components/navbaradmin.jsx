@@ -16,21 +16,33 @@ import {
 
 export default function Navbaradmin() {
   const [activeMenu, setActiveMenu] = useState("");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
   };
+
   // Mengatur menu yang aktif ke "articles" saat pertama kali halaman dimuat
   useEffect(() => {
     handleMenuClick("");
   }, []); // Menjalankan sekali pada saat komponen pertama kali dimuat
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
-    <main className="pl-[267px]">
-      <nav className="w-[267px]  h-screen bg-blue-600 fixed flex flex-col top-0 left-0  items-start justify-start px-4 py-2 z-50">
-        <div className="flex items-center justify-center w-full mt-5 mb-5 ">
+    <main className={`pl-[267px] ${!isSidebarOpen ? "pl-0" : ""}`}>
+      {/* Sidebar */}
+      <nav
+        className={`w-[267px] h-screen bg-blue-600 fixed flex flex-col top-0 left-0 items-start justify-start px-4 py-2 z-50 transition-all ${
+          isSidebarOpen ? "" : "hidden"
+        } sm:block`}
+      >
+        <div className="flex items-center justify-center w-full mt-5 mb-5">
           <Image src="/img/Logo.png" alt="Logo" width={134} height={24} />
         </div>
-        <div className="flex flex-col items-center justify-center w-full p-4 gap-4 ml-5 text-white">
+        <div className="flex flex-col items-start w-full p-4 gap-4 text-white">
           {/* Articles */}
           <div
             className={`flex items-center w-full p-2 rounded-md cursor-pointer ${
@@ -57,7 +69,7 @@ export default function Navbaradmin() {
           >
             <Image
               src="/img/kategori.png"
-              alt="artikel"
+              alt="kategori"
               width={20}
               height={20}
               className="mr-2"
@@ -74,7 +86,7 @@ export default function Navbaradmin() {
           >
             <Image
               src="/img/out.png"
-              alt="artikel"
+              alt="out"
               width={20}
               height={20}
               className="mr-2"
@@ -83,32 +95,49 @@ export default function Navbaradmin() {
           </div>
         </div>
       </nav>
+
+      {/* Button to toggle the sidebar on mobile */}
+      <button
+        className="sm:hidden p-2 absolute top-5 left-5 z-50 text-black"
+        onClick={toggleSidebar}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+        </svg>
+      </button>
     </main>
   );
 }
 
 function Logout() {
   return (
-    <>
-      <AlertDialog>
-        <AlertDialogTrigger>Log Out</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>Logout</AlertDialogTitle>
-            <AlertDialogDescription>
-              Are you sure want to LOGOUT?
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction className="bg-blue-600">
-              <Link href="/Login">
-                Logout
-              </Link>
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger>Log Out</AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Logout</AlertDialogTitle>
+          <AlertDialogDescription>
+            Are you sure want to LOGOUT?
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction className="bg-blue-600">
+            <Link href="/Login">Logout</Link>
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }

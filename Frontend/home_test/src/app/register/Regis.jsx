@@ -18,7 +18,8 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState("");
+  const [role, setRole] = useState("");
+  const [errors, setErrors] = useState({});
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
@@ -27,36 +28,45 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newErrors = {};
+
+    // Validation checks
     if (!username) newErrors.username = "Username field cannot be empty";
-    if (!password) newErrors.password = "Passsword must be at least 8 characters long"; 
+    if (!password) newErrors.password = "Password field cannot be empty";
+    if (password && password.length < 8)
+      newErrors.password = "Password must be at least 8 characters long";
+
+    if (!role) newErrors.role = "Please select a role";
 
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Login sukses!");
-      // lanjut login
+      console.log("Form submitted successfully!");
+      // Add the logic for submitting the form here.
     }
   };
+
   return (
     <main>
-      <section className="w-full min-h-screen bg-gray-100  flex flex-col items-center justify-center ">
-        {/* iki root nya */}
-        <div className="bg-white text-slate-900 w-[400px] h-[452px] flex flex-col text-center rounded-lg justify-center border-2">
+      <section className="w-full min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+        {/* Root container */}
+        <div className="bg-white text-slate-900 w-full max-w-[400px] h-auto flex flex-col text-center rounded-lg justify-center border-2 p-6">
           <section className="flex justify-center mb-6">
             <Image src={"/img/Frame.png"} alt="Logo" width={134} height={24} />
           </section>
+
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col text-sm  text-slate-900"
+            className="flex flex-col text-sm text-slate-900"
           >
-            <div className="flex flex-col items-center gap-2 mb-4 ">
+            {/* Username */}
+            <div className="flex flex-col items-start gap-2 mb-4">
               <label className="w-full text-left ml-7 font-semibold">
                 Username
               </label>
               <Input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="w-[368px]  "
+                className="w-full sm:w-[368px]"
                 placeholder="Input username"
               />
               {errors.username && (
@@ -66,12 +76,13 @@ export default function Login() {
               )}
             </div>
 
-            <div className="flex flex-col items-center gap-2 mb-4 relative">
+            {/* Password */}
+            <div className="flex flex-col items-start gap-2 mb-4 relative">
               <label className="w-full text-left ml-7 font-semibold">
                 Password
               </label>
               <Input
-                className="w-[368px] pr-10"
+                className="w-full sm:w-[368px] pr-10"
                 type={showPassword ? "text" : "password"}
                 placeholder="Input password"
                 value={password}
@@ -90,12 +101,13 @@ export default function Login() {
               )}
             </div>
 
-            <div className="flex flex-col items-center gap-2 mb-4">
+            {/* Role Selection */}
+            <div className="flex flex-col items-start gap-2 mb-4">
               <label className="w-full text-left ml-7 font-semibold">
                 Role
               </label>
-              <Select>
-                <SelectTrigger className="w-[368px]">
+              <Select value={role} onValueChange={setRole}>
+                <SelectTrigger className="w-full sm:w-[368px]">
                   <SelectValue placeholder="Select Your Role" />
                 </SelectTrigger>
                 <SelectContent>
@@ -103,17 +115,25 @@ export default function Login() {
                   <SelectItem value="user">User</SelectItem>
                 </SelectContent>
               </Select>
+              {errors.role && (
+                <p className="text-red-500 text-xs w-full text-left pl-5">
+                  {errors.role}
+                </p>
+              )}
             </div>
 
-            <div className="flex flex-col items-center gap-2 mb-2">
+            {/* Submit Button */}
+            <div className="flex flex-col items-center gap-2 mb-4">
               <Button
                 type="submit"
-                className="w-[368px]  bg-blue-600 text-white"
+                className="w-full sm:w-[368px] bg-blue-600 text-white"
               >
                 Register
               </Button>
             </div>
           </form>
+
+          {/* Link to Login */}
           <p className="text-center text-sm text-gray-600 mt-4">
             Already have an account?{" "}
             <Link href="/Login" className="text-blue-600 hover:underline">

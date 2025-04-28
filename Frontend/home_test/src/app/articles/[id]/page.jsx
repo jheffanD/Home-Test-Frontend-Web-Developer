@@ -7,7 +7,7 @@ export default async function ArticleDetail({ params }) {
   const article = await Viewitem(id);
 
   return (
-    <main className="min-h-screen bg-white flex flex-col items-center px-4 py-20">
+    <main className="w-full bg-white flex flex-col items-center px-4 py-20">
       {/* Header */}
       <div className="max-w-2xl w-full flex flex-col text-center">
         <p className="text-slate-600 text-xs mb-4">
