@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import debounce from "lodash.debounce";
+import { useRef } from "react";
+
 import { useState, useEffect } from "react";
 export default function section1() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -11,25 +12,30 @@ export default function section1() {
     setSearchQuery(e.target.value);
   };
 
-  // Debounced version of fetchArticles
-  const fetchArticlesDebounced = debounce(async (query) => {
-    if (query) {
-      try {
-        const response = await Viewitem(query);
-        setArticles(response);
-      } catch (error) {
-        console.error("Error fetching articles:", error);
-      }
-    } else {
-      setArticles([]); 
-    }
-  }, 500); 
+  const timeoutRef = useRef(null);
 
- 
+  const fetchArticlesDebounced = (query) => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(async () => {
+      if (query) {
+        try {
+          const response = await Viewitem(query);
+          setArticles(response);
+        } catch (error) {
+          console.error("Error fetching articles:", error);
+        }
+      } else {
+        setArticles([]);
+      }
+    }, 500);
+  };
+
   useEffect(() => {
     fetchArticlesDebounced(searchQuery);
 
-    
     return () => {
       fetchArticlesDebounced.cancel();
     };
@@ -73,7 +79,7 @@ export default function section1() {
           {/* Search Bar */}
           <div className="flex-1 bg-white flex items-center rounded-md overflow-hidden">
             <Image
-              src="/img/search.png" 
+              src="/img/search.png"
               alt="Search Icon"
               width={18}
               height={18}
