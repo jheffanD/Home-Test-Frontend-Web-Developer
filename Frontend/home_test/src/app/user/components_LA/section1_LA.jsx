@@ -15,21 +15,21 @@ export default function section1() {
   const fetchArticlesDebounced = debounce(async (query) => {
     if (query) {
       try {
-        const response = await Viewitem(query); // Ganti dengan API pencarian artikel yang sesuai
-        setArticles(response); // Asumsikan response adalah array artikel
+        const response = await Viewitem(query);
+        setArticles(response);
       } catch (error) {
         console.error("Error fetching articles:", error);
       }
     } else {
-      setArticles([]); // Kosongkan hasil artikel jika query kosong
+      setArticles([]); 
     }
-  }, 500); // Debounce dengan delay 500ms
+  }, 500); 
 
-  // Memanggil pencarian artikel ketika query berubah
+ 
   useEffect(() => {
     fetchArticlesDebounced(searchQuery);
 
-    // Cleanup debounce on unmount
+    
     return () => {
       fetchArticlesDebounced.cancel();
     };
@@ -41,7 +41,7 @@ export default function section1() {
         {/* Background Image */}
         <div className="absolute top-0 left-0 w-full h-full z-0">
           <Image
-            src="/img/back.jpg" // Ganti dengan path gambar Anda
+            src="/img/back.jpg"
             alt="Background"
             layout="fill"
             objectFit="cover"
@@ -73,7 +73,7 @@ export default function section1() {
           {/* Search Bar */}
           <div className="flex-1 bg-white flex items-center rounded-md overflow-hidden">
             <Image
-              src="/img/search.png" // Ganti dengan path gambar Anda
+              src="/img/search.png" 
               alt="Search Icon"
               width={18}
               height={18}
