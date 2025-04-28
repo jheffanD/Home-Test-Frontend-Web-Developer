@@ -41,7 +41,7 @@ export default function OtherArtikel({ jumm }) {
 
   return (
     <main>
-      <section className="w-full min-h-screen bg-white flex flex-col items-center px-4 ">
+      <section className="w-full min-h-screen bg-white flex flex-col sm:flex-row items-center px-4 ">
         {/* Menampilkan informasi jumlah item hanya di root */}
         {pathname === "/" && (
           <p className="text-gray-600 flex text-sm w-full text-left pl-10 mb-1">
