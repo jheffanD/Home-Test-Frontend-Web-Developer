@@ -1,6 +1,7 @@
 # Home-Test-Frontend-Web-Developer
 
-![image](https://github.com/user-attachments/assets/28e6e9cc-e1fa-45a9-b021-afbe86e3b4e3)
+![image](https://github.com/user-attachments/assets/f9c36739-937f-4d75-b851-22fdebd23856)
+
 
 # Deskripsi
 projek kali ini adalah salah satu test, dimana membuat tampilan seperti pada link ini [desain](https://www.figma.com/design/lViPj6XCC3YPnUIrr6W5rx/Home-Test-Frontend-Web-Developer?node-id=2001-350&p=f&t=k594P9Fl5Rw90d7f-0) 
