@@ -27,7 +27,6 @@ export default function Login() {
 
     if (Object.keys(newErrors).length === 0) {
       console.log("Login sukses!");
-      // lanjut login
     }
   };
 
