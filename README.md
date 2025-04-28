@@ -21,6 +21,7 @@ mulai dari tampilan admin dan user, serta responsive layar pada desktop, tablet 
    ```
 2. Instal dependensi:
    ```
+   npm install
    ```
 3. Jalankan proyek:
    ```
