@@ -4,11 +4,12 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   const excludedPaths = [
-    "/app/Login",
-    "/app/register",
+    "/Login",
+    "/register",
     "/admin/artikel/crud",
     "/admin/artikel/up",
     "/admin/artikel/kategori",
+    "/admin/artikel/profile",
   ];
 
   return (

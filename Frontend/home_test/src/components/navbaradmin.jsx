@@ -1,7 +1,18 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import { useState , useEffect} from "react";
+import { useState, useEffect } from "react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function Navbaradmin() {
   const [activeMenu, setActiveMenu] = useState("");
@@ -68,10 +79,36 @@ export default function Navbaradmin() {
               height={20}
               className="mr-2"
             />
-            <span>Logout</span>
+            <Logout />
           </div>
         </div>
       </nav>
     </main>
+  );
+}
+
+function Logout() {
+  return (
+    <>
+      <AlertDialog>
+        <AlertDialogTrigger>Log Out</AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Logout</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure want to LOGOUT?
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction className="bg-blue-600">
+              <Link href="/Login">
+                Logout
+              </Link>
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
   );
 }
