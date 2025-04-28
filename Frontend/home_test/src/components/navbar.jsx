@@ -41,6 +41,7 @@ export default function Navbar() {
     "/app/register",
     "/admin/artikel/crud",
     "/admin/artikel/up",
+    "/admin/artikel/edit/[id]",
   ];
   return (
     <main>
