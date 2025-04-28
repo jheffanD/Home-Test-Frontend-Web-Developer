@@ -16,16 +16,14 @@ export default function Navbar() {
       try {
         const response = await Getalluser();
         const data = await response.json();
-
-        // Misal datanya kayak { name: "Jeffan" }
         setUserName(data.name);
       } catch (error) {
         console.error("Failed to fetch user:", error);
       }
     };
-
     fetchUser();
   }, []);
+
   const firstLetter = userName ? userName.charAt(0).toUpperCase() : "";
 
   const isWhiteLogo =
@@ -34,8 +32,8 @@ export default function Navbar() {
     pathname.startsWith("/user/list_artikel");
 
   const logoSrc = isWhiteLogo ? "/img/Frame.png" : "/img/Logo.png";
-
   const textColor = isWhiteLogo ? "text-black" : "text-white";
+
   const excludedPaths = [
     "/app/Login",
     "/app/register",
@@ -45,24 +43,34 @@ export default function Navbar() {
     "/admin/artikel/kategori",
     "/admin/artikel/profile",
   ];
+
   return (
     <main>
-      {/* agar navbar tidak muncul di page regis dan login */}
       {!excludedPaths.includes(pathname) && (
-        <nav className="w-full h-14 bg-transparent fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-2 z-50">
-          <div className="flex items-center ml-10">
+        <nav className="w-full h-14 md:h-16 fixed top-0 left-0 right-0 flex items-center justify-between bg-transparent  px-4 md:px-10 py-2 z-50">
+          {/* Logo */}
+          <div className="flex items-center">
             <Link href="/">
-              <Image src={logoSrc} alt="Logo" width={100} height={100} />
+              <Image
+                src={logoSrc}
+                alt="Logo"
+                width={80}
+                height={80}
+                className="w-24 md:w-28 lg:w-32" // Responsive logo
+              />
             </Link>
           </div>
 
-          <div className="flex items-center space-x-2 text-white mr-10">
-            <div className="bg-gray-400 w-5 mr-5 rounded-full flex items-center justify-center font-medium">
+          {/* User Info */}
+          <div className="flex items-center space-x-2">
+            <div className="bg-gray-400 w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center font-medium text-sm md:text-base">
               <Avatar>
-                <AvatarFallback> {firstLetter}</AvatarFallback>
+                <AvatarFallback>{firstLetter}</AvatarFallback>
               </Avatar>
             </div>
-            <Userbutton warna={textColor} />
+            <div className="hidden sm:flex">
+              <Userbutton warna={textColor} />
+            </div>
           </div>
         </nav>
       )}
