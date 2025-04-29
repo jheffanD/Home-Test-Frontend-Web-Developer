@@ -1,6 +1,9 @@
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 
 export default function UserProfile() {
+
+  const {data} = useSession();
   return (
     <main className="min-h-screen bg-white flex items-center justify-center p-6">
       <section className="w-full max-w-sm bg-white rounded-lg shadow-md p-6 flex flex-col items-center gap-6">

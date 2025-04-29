@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Link from "next/link";
+import { signIn, signOut } from "next-auth/react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +18,7 @@ export default function Login() {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const newErrors = {};
     if (!username) newErrors.username = "Please enter your username";
@@ -26,7 +27,18 @@ export default function Login() {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length === 0) {
-      console.log("Login successful!");
+      const result = await signIn("credentials", {
+        redirect: false,
+        username,
+        password,
+        callbackUrl: "/",
+      });
+
+      if (result?.ok) {
+        window.location.href = result.url || "/";
+      } else {
+        setErrors({ form: "Invalid username or password" });
+      }
     }
   };
 
@@ -42,6 +54,10 @@ export default function Login() {
             onSubmit={handleSubmit}
             className="flex flex-col text-sm text-slate-900"
           >
+            {errors.form && (
+              <p className="text-red-500 text-xs text-center">{errors.form}</p>
+            )}
+
             {/* Username */}
             <div className="flex flex-col items-start gap-2 mb-4">
               <label className="w-full text-left ml-7 font-semibold">
@@ -50,6 +66,7 @@ export default function Login() {
               <Input
                 className="w-full sm:w-[368px]"
                 placeholder="Input username"
+                id="username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
@@ -67,6 +84,7 @@ export default function Login() {
               </label>
               <Input
                 className="w-full sm:w-[368px] pr-10"
+                id="password"
                 type={showPassword ? "text" : "password"}
                 placeholder="Input password"
                 value={password}

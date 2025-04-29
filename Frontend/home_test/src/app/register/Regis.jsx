@@ -1,18 +1,19 @@
 "use client";
 
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { Input } from "../../components/ui/input";
+import { Button } from "../../components/ui/button";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "../../components/ui/select";
 import Link from "next/link";
 import { useState } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -20,28 +21,57 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [role, setRole] = useState("");
   const [errors, setErrors] = useState({});
+  const [isloading, setloading] = useState(false);
+
+  const router = useRouter();
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const newErrors = {};
 
-    // Validation checks
+    // Validasi input sebelum request
     if (!username) newErrors.username = "Username field cannot be empty";
     if (!password) newErrors.password = "Password field cannot be empty";
     if (password && password.length < 8)
       newErrors.password = "Password must be at least 8 characters long";
-
     if (!role) newErrors.role = "Please select a role";
 
-    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
-    if (Object.keys(newErrors).length === 0) {
-      console.log("Form submitted successfully!");
-      // Add the logic for submitting the form here.
+    // Data siap dikirim
+    const data = { username, password, role };
+    setloading(true);
+
+    try {
+      const result = await fetch("/API/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (result.status === 200) {
+        setloading(false);
+        router.push("/Login");
+      } else if (result.status === 400) {
+        setErrors({ username: "Username already exists" });
+        setloading(false);
+      } else {
+        setloading(false);
+        console.error("Unhandled error");
+      }
+    } catch (error) {
+      setloading(false);
+      console.error("Error submitting form:", error);
     }
   };
 
@@ -68,6 +98,8 @@ export default function Login() {
                 onChange={(e) => setUsername(e.target.value)}
                 className="w-full sm:w-[368px]"
                 placeholder="Input username"
+                nama="username"
+                id="username"
               />
               {errors.username && (
                 <p className="text-red-500 text-xs w-full text-left pl-5">
@@ -86,6 +118,8 @@ export default function Login() {
                 type={showPassword ? "text" : "password"}
                 placeholder="Input password"
                 value={password}
+                name="password"
+                id="password"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <div
@@ -106,7 +140,12 @@ export default function Login() {
               <label className="w-full text-left ml-7 font-semibold">
                 Role
               </label>
-              <Select value={role} onValueChange={setRole}>
+              <Select
+                name="role"
+                id="role"
+                value={role}
+                onValueChange={setRole}
+              >
                 <SelectTrigger className="w-full sm:w-[368px]">
                   <SelectValue placeholder="Select Your Role" />
                 </SelectTrigger>

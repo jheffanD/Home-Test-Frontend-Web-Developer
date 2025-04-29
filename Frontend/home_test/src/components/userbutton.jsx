@@ -5,7 +5,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "../components/ui/dropdown-menu";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -16,18 +16,20 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "../components/ui/alert-dialog";
 
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
-export default function UserMenu({ warna }) {
+export default function Userbutton({ warna }) {
   const color = warna;
 
+  const {data} = useSession()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <span className={`underline font-light cursor-pointer ${color}`}>
-          Jeffan
+          {data && data.user.name}{""}
         </span>
       </DropdownMenuTrigger>
 

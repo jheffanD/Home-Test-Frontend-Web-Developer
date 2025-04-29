@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Adminbutton from "./adminbutton"
+import Adminbutton from "./adminbutton";
 import { usePathname } from "next/navigation";
 
 export default function Navtop() {

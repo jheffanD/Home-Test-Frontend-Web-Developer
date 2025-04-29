@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import Userbutton from "@/components/userbutton";
+import { Avatar, AvatarFallback } from "../components/ui/avatar";
+import Userbutton from "./userbutton"
 import { usePathname } from "next/navigation";
-import { Getalluser } from "@/app/API/Route";
+import { Getalluser } from "../app/API/Route";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
