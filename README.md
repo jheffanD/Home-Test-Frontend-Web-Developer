@@ -36,3 +36,22 @@ mulai dari tampilan admin dan user, serta responsive layar pada desktop, tablet 
 - dll
 
 
+  ## path
+  - /
+  - /user/profile
+  - /Login
+  - /register
+  - /admin/artikel/crud
+  - /admin/artikel/kategori
+  - /articles
+
+    ## API
+    menggunakan data dummy yang di ubah menjadi API dengan bantuan [Fake APi](https://mocki.io/fake-json-api)
+
+    ## Fatching API
+    menggunakan axios
+
+
+    ## node
+    beberapa tampilan, ada yang sedikit berubaha dari aslinya sebelum proses responsive di karenakan proses responsive layar, beberapa screen tidak terbaca yang menyebabkan berubahnya sebuah tampilan, ketika berada di layar dekstop sedang atau besar.
+
